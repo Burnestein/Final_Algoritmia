@@ -7,6 +7,7 @@ Carrera: Ingeniería en Computación, 1er Semestre
 #include <wchar.h>
 #include <locale.h>
 #include <stdlib.h>
+#include <time.h>
 using namespace std;
 void INICIO();
 void MENU(int numero);
@@ -30,7 +31,14 @@ void PERTENECE_A_FIBONACCI();
 void FIBONACCI_100_10000();
 void DECIMAL_BINARIO();
 void PARES_IMPARES();
+void MAYOR_MENOR();
+void RECORRER();
+void MITADMAYOR_MITADMENOR();
+void TABLERO();
+
 bool salir=false;
+
+
 
 int main(){
 	int select;
@@ -85,64 +93,76 @@ void MENU(int numero){
 	switch(numero){
 		case 1:
 			HOLA_MUNDO();
-		break;
+			break;
 		case 2:
 			SUMA3NUMS();
-		break;
+			break;
 		case 3:
 			AREA_TRIANGULO();
-		break;
+			break;
 		case 4:
 			INTERCAMBIAR_VALORES();
-		break;
+			break;
 		case 5:
 			OPERACIONES();
-		break;
+			break;
 		case 6:
 			SEGUNDOS_DIAS();
-		break;
+			break;
 		case 7:
 			ANGULOS();
-		break;
+			break;
 		case 8:
 			CENTIGRADOS_FAHRENHEIT();
-		break;
+			break;
 		case 9:
 			DINERO_JUAN();
-		break;
+			break;
 		case 10:
 			EDAD_2030();
-		break;
+			break;
 		case 11:
 			SOLO_POSITIVOS();
-		break;
+			break;
 		case 12:
 			TABLAS();
-		break;
+			break;
 		case 13:
 			FACTORIAL();
-		break;
+			break;
 		case 14:
 			MAYOR_20NUMS();
-		break;
+			break;
 		case 15:
 			PARES_IMPARES_300_555();
-		break;
+			break;
 		case 16:
 			FIBONACCI_20();
-		break;
+			break;
 		case 17:
 			PERTENECE_A_FIBONACCI();
-		break;
+			break;
 		case 18:
 			FIBONACCI_100_10000();
-		break;
+			break;
 		case 19:
 			DECIMAL_BINARIO();
-		break;
+			break;
 		case 20:
 			PARES_IMPARES();
-		break;
+			break;
+		case 21:
+			MAYOR_MENOR();
+			break;
+		case 22:
+			RECORRER();
+			break;
+		case 23:
+			MITADMAYOR_MITADMENOR();
+			break;
+		case 24:
+			TABLERO();
+			break;
 		case 0:
 			salir=true;
 			cout<<endl<<"Cerrando programa..."<<endl<<endl;
@@ -452,6 +472,7 @@ void DECIMAL_BINARIO(){
 }
 
 void PARES_IMPARES(){
+	cout<<"SEPARAR ARREGLO EN PARES E IMPARES"<<endl<<endl;
 	int arreglo[20], pares=0, impares=0, i;
 	for(i=0;i<20;i++){
 		cout<<"Ingrese el numero de la posicion "<<i<<endl;
@@ -485,4 +506,136 @@ void PARES_IMPARES(){
 		cout<<" "<<arregloimpar[i];
 	}
 	cout<<endl;
+}
+
+void MAYOR_MENOR(){
+	cout<<"EL MAYOR Y EL MENOR DE UN ARREGLO"<<endl<<endl;
+	int 
+	max=0,
+	min=1000,
+	i,
+	maxpos,
+	minpos,
+	arreglo[100];
+	srand(time(NULL));
+	for(i=0;i<100;i++){
+		arreglo[i]=rand()%1000;
+	}
+	cout<<"ARREGLO:[";
+	for(i=0;i<100;i++){
+		if (arreglo[i]>=max){
+			max=arreglo[i];
+			maxpos=i;
+		}
+		else if(arreglo[i]<=min){
+			min=arreglo[i];
+			minpos=i;
+		}
+		cout<<" "<<arreglo[i]<<",";		
+	}
+	cout<<"]"<<endl<<"El valor maximo es "<<max<<" y su posicion es "<<maxpos<<endl<<"El valor minimo es "<<min<<" y su posicion es "<<minpos<<endl;
+}
+
+void RECORRER(){
+	int arreglo[30];
+	int count;
+	int i;
+	int num;
+	int x;
+	cout<<"RECORRER LOS VALORES DE UN ARREGLO"<<endl<<endl;
+	cout << "Ingrese los valores a almacenar e ingrese cero para recorrerlos" << endl;
+	// si vale cero termina la operacion
+	num = 1;
+	// Inicia bucle para pedir valores
+	for (i=1;i<=30;i++) {
+		if (num!=0) {
+			// pide un valor
+			cin >> num;
+			// guarda el valor en un arreglo
+			arreglo[i-1] = num;
+			// cuenta cuantos valores se han ingresado
+			count = count+1;
+		} else {
+			// para romper el bucle al ingresar 0
+			i = 31;
+		}
+	}
+	cout << "El arreglo es" << endl;
+	// crea un arreglo del tamaño de los valores ingresados
+	// pasa los valores de un arreglo al otro
+	int arreglo2[count-1];
+	for (i=1;i<=count-1;i++) {
+		arreglo2[i-1] = arreglo[i-1];
+	}
+	// escribe el arreglo ingresado
+	for (i=1;i<=count-1;i++) {
+		cout << " " << arreglo2[i-1];
+	}
+	// guarda el primer dato que se va a perder
+	x = arreglo2[0];
+	for (i=1;i<=count-2;i++) {
+		// intercambia las posiciones
+		arreglo2[i-1] = arreglo2[i];
+	}
+	// regresa el valor perdido
+	arreglo2[count-2] = x;
+	cout << "" << endl;
+	cout << "El arreglo recorrido es:" << endl;
+	// escribe el arreglo recorrido
+	for (i=1;i<=count-1;i++) {
+		cout << " " << arreglo2[i-1];
+	}	
+	cout<<endl;
+}
+
+void MITADMAYOR_MITADMENOR(){
+	int arreglo[100];
+	int i;
+	float suma1;
+	float suma2;
+	suma1 = 0;
+	suma2 = 0;
+	cout<<"DETERMINAR SI LA PRIMER MITAD DE UN ARREGLO ES MAYOR A LA SEGUNDA"<<endl<<endl;
+	cout << "arreglo:[";
+	srand(time(NULL));
+	// asigna valores aleatorios al arreglo
+	for (i=1;i<=100;i++) {
+		arreglo[i-1] = (rand()%9);
+		cout << " " << arreglo[i-1] << ",";
+	}
+	cout << "]" << endl;
+	for (i=1;i<=100/2;i++) {
+		suma1 = suma1+arreglo[i-1];
+	}
+	cout << "suma1: " << suma1 << endl;
+	for (i=(100/2)+1;i<=100;i++) {
+		suma2 = suma2+arreglo[i-1];
+	}
+	cout << "suma2: " << suma2 << endl;
+	if (suma1==suma2) {
+		cout << "Las mitades tienen el mismo valor." << endl;
+	} else {
+		if (suma1>suma2) {
+			cout << "La primer mitad es mayor a la segunda mitad." << endl;
+		} else {
+			cout << "La segunda mitad es mayor a la primer mitad." << endl;
+		}
+	}
+}
+
+void TABLERO(){
+	int columnas;
+	int filas;
+	int tablero[8][8];
+	cout<<"UN TABLERO DE AJEDREZ"<<endl<<endl;
+	for (filas=1;filas<=8;filas++) {
+		for (columnas=1;columnas<=8;columnas++) {
+			if ((filas+columnas)%2==0) {
+				cout <<"N";
+			} else {
+				cout <<"B";
+			}
+		}
+		cout << "" << endl;
+	}
 }
