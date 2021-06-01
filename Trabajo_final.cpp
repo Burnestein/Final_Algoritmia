@@ -8,6 +8,7 @@ Carrera: Ingeniería en Computación, 1er Semestre
 #include <locale.h>
 #include <stdlib.h>
 #include <time.h>
+#include <iomanip>
 using namespace std;
 void INICIO();
 void MENU(int numero);
@@ -35,6 +36,15 @@ void MAYOR_MENOR();
 void RECORRER();
 void MITADMAYOR_MITADMENOR();
 void TABLERO();
+void MATRIZ_POR_2();
+void COLUMNA_MAYOR();
+void MAYOR_PROMEDIO();
+void SUMA_FILAS_COLUMNAS();
+void INTERCAMBIAR_COLUMNAS();
+void FUNCIONES();
+int sacarmaximo(int numero, int mayor);
+int sacarposicionmaximo(int numero, int mayor, int indice);
+int sumarfilas(int numero1, int numero2, int indice);
 
 bool salir=false;
 
@@ -162,6 +172,24 @@ void MENU(int numero){
 			break;
 		case 24:
 			TABLERO();
+			break;
+		case 25:
+			MATRIZ_POR_2();
+			break;
+		case 26:
+			COLUMNA_MAYOR();
+			break;
+		case 27:
+			MAYOR_PROMEDIO();
+			break;
+		case 28:
+			SUMA_FILAS_COLUMNAS();
+			break;
+		case 29:
+			INTERCAMBIAR_COLUMNAS();
+			break;
+		case 30:
+			FUNCIONES();
 			break;
 		case 0:
 			salir=true;
@@ -638,4 +666,289 @@ void TABLERO(){
 		}
 		cout << "" << endl;
 	}
+}
+
+void MATRIZ_POR_2(){
+	int i;
+	int j;
+	float matriz[3][3];
+	matriz[0][0] = 5;
+	matriz[0][1] = 6;
+	matriz[0][2] = 13;
+	matriz[1][0] = 14;
+	matriz[1][1] = 2;
+	matriz[1][2] = 4;
+	matriz[2][0] = 21;
+	matriz[2][1] = 7;
+	matriz[2][2] = 6;
+	cout<<"MATRIZ POR 2"<<endl<<endl;
+	cout << "Matriz original: " << endl;
+	for (i=0;i<3;i++) {
+		for (j=0;j<3;j++) {
+			cout << matriz[i][j] << " ";
+		}
+		cout << "" << endl;
+	}
+	cout << "" << endl;
+	for (i=0;i<3;i++) {
+		for (j=0;j<3;j++) {
+			matriz[i][j] = matriz[i][j]*2;
+		}
+	}
+	cout << "Matriz x 2" << endl;
+	for (i=0;i<3;i++) {
+		for (j=0;j<3;j++) {
+			cout << matriz[i][j] << " ";
+		}
+		cout << "" << endl;
+	}
+}
+
+void COLUMNA_MAYOR(){
+	int elmayor=0;
+	int i=0;
+	int j=0;
+	int matriz[20][20];
+	int posicion=0;
+	unsigned int suma[20];
+	srand(time(NULL));
+	cout<<"LA COLUMNA MAYOR DE UNA MATRIZ"<<endl<<endl;
+	// llenar matriz con numeros aleatorios
+	cout << "La matriz es: " << endl;
+	for (i=0;i<20;i++) {
+		for (j=0;j<20;j++) {
+			matriz[i][j] = (rand()%10);
+			cout << matriz[i][j] << ", ";
+		}
+		cout << "" << endl;
+	}
+	
+	//inicializar en cero
+	for (i=0;i<20;i++){
+		suma[i]=0;
+	}
+	
+	// sumar columnas
+	for (i=0;i<20;i++) {
+		for (j=0;j<20;j++) {
+			suma[i]+=matriz[i][j];
+		}
+	}
+	// imprime las sumas
+	cout << "Las sumas son: " << endl;
+	for (i=0;i<20;i++) {
+		cout << suma[i] << ", " << endl;
+	}
+	// imprime el resultado
+	elmayor = 0;
+	for (i=0;i<20;i++) {
+		if (suma[i]>elmayor) {
+			elmayor = suma[i];
+			posicion = i+1;
+		}
+	}
+	cout << "La columna mayor es la numero " << posicion << " y su valor es " << elmayor << endl;
+}
+
+void MAYOR_PROMEDIO(){
+	int i=0;
+	float impares=0;
+	int j=0;
+	int matriz[10][10];
+	float pares=0;
+	float promedio=0;
+	float suma=0;
+	srand(time(NULL));
+	cout<<"SUMA DE PARES E IMPARES MAYORES AL PROMEDIO"<<endl<<endl;
+	// llenar la matriz de numaros aleatorios
+	for (i=0;i<10;i++) {
+		for (j=0;j<10;j++) {
+			matriz[i][j] = (rand()%10);
+			suma+=matriz[i][j];
+			cout << matriz[i][j] << ", ";
+		}
+		cout << "" << endl;
+	}
+	promedio = suma/100;
+	for (i=0;i<10;i++) {
+		for (j=0;j<10;j++) {
+			if (matriz[i][j]%2==0 && matriz[i][j]>promedio) {
+				pares+=matriz[i][j];
+			}
+			if (matriz[i][j]%2!=0 && matriz[i][j]<promedio) {
+				impares+=matriz[i][j];
+			}
+		}
+	}
+	cout << "suma: " << suma << endl;
+	cout << "promedio: " << fixed <<setprecision(2) << promedio << endl;
+	cout << "suma pares mayores al promedio: " <<setprecision(0)<< pares << endl;
+	cout << "suma impares mayores al promedio: " << impares << endl;
+}
+
+void SUMA_FILAS_COLUMNAS(){
+	float a[10];
+	int b[10];
+	int columna;
+	int fila;
+	int matriz[10][10];
+	srand(time(NULL));
+	cout<<"SUMA DE fILAS Y COLUMNAS DE UNA MATRIZ"<<endl<<endl;
+	cout << "La matriz es: " << endl;
+	for (fila=0;fila<10;fila++) {
+		for (columna=0;columna<10;columna++) {
+			matriz[fila][columna] = (rand()%2);
+			a[fila] = a[fila]+matriz[fila][columna];
+			if (fila==0) {
+				b[columna] = matriz[fila][columna];
+			} else {
+				b[columna] = matriz[fila][columna]+b[columna];
+			}
+			cout << matriz[fila][columna] << ", ";
+		}
+		cout << "" << endl;
+	}
+	cout << "" << endl;
+	cout << "La suma de columnas es: " << endl;
+	for (fila=0;fila<10;fila++) {
+		cout << a[fila] << ", ";
+	}
+	cout << "" << endl;
+	cout << "La suma de filas es: " << endl;
+	for (fila=0;fila<10;fila++) {
+		cout << b[fila] << ", ";
+	}
+}
+
+void INTERCAMBIAR_COLUMNAS(){
+	int columna;
+	int fila;
+	int matriz[10][10];
+	int temp;
+	srand(time(NULL));
+	cout<<"INTERCAMBIAR PRIMERA Y ULTIMA COLUMNA"<<endl<<endl;
+	cout << "La matriz es: " << endl;
+	for (fila=0;fila<10;fila++) {
+		for (columna=0;columna<10;columna++) {
+			matriz[fila][columna] = (rand()%10);
+			cout << matriz[fila][columna] << ", ";
+		}
+		cout << "" << endl;
+	}
+	cout <<endl<< "La matriz intercambiada es: " << endl;
+	for (fila=0;fila<10;fila++) {
+		temp = matriz[fila][9];
+		matriz[fila][9] = matriz[fila][0];
+		matriz[fila][0] = temp;
+	}
+	for (fila=0;fila<10;fila++) {
+		for (columna=0;columna<10;columna++) {
+			cout << matriz[fila][columna] << ", ";
+		}
+		cout << "" << endl;
+	}
+}
+
+void FUNCIONES(){
+	int col=0;
+	int fila=0;
+	int matriz[10][10];
+	int max=0;
+	int maxcol[10];
+	int maxtotal=0;
+	int pos=0;
+	int sumacol[10];
+	int sumafil[10];
+	max = 0;
+	srand(time(NULL));
+	//inicializar matrices en cero
+	for(fila=0;fila<10;fila++){
+		maxcol[fila]=0;
+		sumacol[fila]=0;
+		sumafil[fila]=0;
+	}
+	// bucle que llena la matriz
+	for (fila=0;fila<10;fila++) {
+		for (col=0;col<10;col++) {
+			// pone numeros al azar en la posicion
+			matriz[fila][col] = (rand()%10);
+			// Va imprimiendo la columna de la matriz original
+			cout << matriz[fila][col] << ", ";
+			// va sumando las columnas de la fila n en el mismo bucle, no necesita funcion
+			sumacol[fila] = sumacol[fila]+matriz[fila][col];
+			// hace la suma de las filas de la columna n con una funcion
+			sumafil[col] = sumarfilas(sumafil[col],matriz[fila][col],fila);
+			// acumula el valor mayor total y lo compara con el numero de la matriz
+			maxtotal = sacarmaximo(matriz[fila][col],maxtotal);
+			// acumula el valor mayor total hasta que termina la fila para sumar las columnas.
+			max = sacarmaximo(matriz[fila][col],max);
+		}
+		// salto de columna para imprimir la siguiente fila de la matriz
+		cout << "" << endl;
+		// guarda el valor de la columna mayor obtenido en la fila actual
+		maxcol[fila] = max;
+		// regresa el valor de la columna mayor a cero para volver a contar en la siguiente fila
+		max = 0;
+		// termina el bucle
+	}
+	cout << "El numero mayor del arreglo es: " << maxtotal << endl;
+	cout << "Los mayores de cada renglon son: " << endl;
+	for (fila=0;fila<10;fila++) {
+		// Escribe las columnas mayores de cada fila
+		cout << maxcol[fila] << ", ";
+	}
+	cout << "" << endl;
+	cout << "Las sumas de cada col son: " << endl;
+	for (fila=0;fila<10;fila++) {
+		// Escribe las sumas obtenidas de cada columna
+		cout << sumacol[fila] << ", ";
+		// obtiene el mayor de las sumas de cada columna
+		max = sacarmaximo(sumacol[fila],max);
+		// obtiene la posicion del mayor
+		pos = sacarmaximo(sacarposicionmaximo(sumacol[fila],max,fila),pos);
+	}
+	cout << "" << endl;
+	cout << "La columna con la maxima suma es la " << pos+1 << " y su valor fue " << max << endl;
+	max = 0;
+	pos = 0;
+	cout << "Las sumas de cada fila son: " << endl;
+	for (fila=0;fila<10;fila++) {
+		// Escribe las sumas obtenidas de cada fila
+		cout << sumafil[fila] << ", ";
+		// obtiene el mayor de las sumas de cada fila
+		max = sacarmaximo(sumafil[fila],max);
+		// posicion del mayor
+		pos = sacarmaximo(sacarposicionmaximo(sumafil[fila],max,fila),pos);
+	}
+	cout << "" << endl;
+	cout << "La fila con la maxima suma es la " << pos+1 << " y su valor fue " << max << endl;
+}
+// Funcion para sacar el mayor
+int sacarmaximo(int numero, int mayor) {
+	if (numero>=mayor) {
+		// si el numero es mayor retorna el mayor
+		mayor = numero;
+	}
+	return mayor;
+}
+// funcion para la posicion del mayor
+int sacarposicionmaximo(int numero, int mayor, int indice) {
+	int pos;
+	if (numero>=mayor) {
+		// si el numero es mayor guarda y retorna el indice
+		pos = indice;
+	}
+	return pos;
+}
+// funcion para la suma de filas
+int sumarfilas(int numero1, int numero2, int indice) {
+	// va sumando las filas en un arreglo, con las filas anteriores
+	if (indice==0) {
+		// si es la primer fila el valor no se suma
+		numero1 = numero2;
+	} else {
+		// si no es la primer fila se suma con la fila anterior
+		numero1 = numero2+numero1;
+	}
+	return numero1;
 }
